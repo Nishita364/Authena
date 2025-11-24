@@ -89,7 +89,7 @@ export default function TrustScoreChecker() {
   }
 
   return (
-    <section className="container mx-auto px-6 py-12">
+    <section id="trust-checker" className="container mx-auto px-6 py-12">
       <div className="max-w-4xl mx-auto bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-8">
         <h2 className="text-3xl font-bold text-white mb-6 text-center">
           Check Trust Score

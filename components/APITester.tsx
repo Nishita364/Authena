@@ -10,10 +10,25 @@ export default function APITester() {
     setTesting(true)
     try {
       const response = await fetch('/api/test-hf')
+      if (!response.ok) {
+        const errorText = await response.text()
+        setResult({ 
+          error: 'API request failed', 
+          status: response.status,
+          statusText: response.statusText,
+          details: errorText
+        })
+        setTesting(false)
+        return
+      }
       const data = await response.json()
       setResult(data)
     } catch (error) {
-      setResult({ error: 'Failed to test API' })
+      setResult({ 
+        error: 'Failed to test API',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        type: 'Network or parsing error'
+      })
     } finally {
       setTesting(false)
     }

@@ -11,13 +11,14 @@ export async function POST(request: Request) {
       )
     }
 
-    console.log('Calling Hugging Face API for text:', text.substring(0, 100))
+    console.log('Analyzing text with HuggingFace API:', text.substring(0, 100))
 
-    // Try multiple models for better accuracy
+    const API_TOKEN = process.env.HUGGINGFACE_API_TOKEN
+
+    // Use HuggingFace models with authentication
     const models = [
       'Hello-SimpleAI/chatgpt-detector-roberta',
-      'roberta-base-openai-detector',
-      'Hello-SimpleAI/chatgpt-qa-detector-roberta'
+      'roberta-base-openai-detector'
     ]
 
     let aiScore = 0
@@ -31,10 +32,11 @@ export async function POST(request: Request) {
           {
             method: 'POST',
             headers: {
+              'Authorization': `Bearer ${API_TOKEN}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              inputs: text.substring(0, 512), // Limit to 512 chars
+              inputs: text.substring(0, 512),
             }),
           }
         )
@@ -44,19 +46,23 @@ export async function POST(request: Request) {
         if (!response.ok) {
           const errorText = await response.text()
           console.log(`Model ${model} error:`, errorText)
-          continue // Try next model
+          continue
         }
 
         const data = await response.json()
         console.log(`Model ${model} response:`, JSON.stringify(data))
 
         // Check if model is loading
-        if (data.error && data.error.includes('loading')) {
-          console.log(`Model ${model} is loading, trying next...`)
+        if (data.error) {
+          if (data.error.includes('loading')) {
+            console.log(`Model ${model} is loading, trying next...`)
+            continue
+          }
+          console.log(`Model ${model} returned error:`, data.error)
           continue
         }
 
-        // Parse response - different models have different formats
+        // Parse response
         if (Array.isArray(data) && data.length > 0) {
           const results = Array.isArray(data[0]) ? data[0] : data
           
@@ -64,12 +70,12 @@ export async function POST(request: Request) {
             const label = item.label.toLowerCase()
             const score = item.score * 100
             
-            // Check for AI/Fake labels
+            console.log(`  - Label: ${label}, Score: ${score.toFixed(2)}%`)
+            
             if (label.includes('fake') || label.includes('generated') || 
                 label.includes('ai') || label === 'label_1' || label === '1') {
               aiScore = Math.max(aiScore, score)
             }
-            // Check for Human/Real labels
             else if (label.includes('real') || label.includes('human') || 
                      label === 'label_0' || label === '0') {
               humanScore = Math.max(humanScore, score)
@@ -78,12 +84,13 @@ export async function POST(request: Request) {
 
           if (aiScore > 0 || humanScore > 0) {
             modelUsed = model
-            break // Success, exit loop
+            console.log(`✓ Successfully used model: ${model}`)
+            break
           }
         }
       } catch (modelError) {
         console.error(`Error with model ${model}:`, modelError)
-        continue // Try next model
+        continue
       }
     }
 
@@ -91,18 +98,16 @@ export async function POST(request: Request) {
     if (aiScore === 0 && humanScore === 0) {
       console.log('All models failed, using fallback heuristics')
       
-      // Heuristic analysis
       const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0)
       const words = text.split(/\s+/)
       const avgWordLength = text.replace(/\s+/g, '').length / words.length
       const avgSentenceLength = words.length / sentences.length
       
-      // AI indicators
       let aiIndicators = 0
       if (avgSentenceLength > 20) aiIndicators += 25
       if (avgWordLength > 5.5) aiIndicators += 20
       if (!/\b(I|my|me|we|our)\b/i.test(text)) aiIndicators += 25
-      if (!/[!?]{2,}/.test(text) && !/\.\.\./. test(text)) aiIndicators += 15
+      if (!/[!?]{2,}/.test(text) && !/\.\.\./.test(text)) aiIndicators += 15
       if (text.split('\n\n').length < 2) aiIndicators += 15
       
       aiScore = Math.min(100, aiIndicators)
@@ -117,7 +122,11 @@ export async function POST(request: Request) {
       humanScore = (humanScore / total) * 100
     }
 
-    console.log('Final scores:', { aiScore, humanScore, modelUsed })
+    console.log('Final scores:', { 
+      aiScore: aiScore.toFixed(1), 
+      humanScore: humanScore.toFixed(1), 
+      modelUsed 
+    })
 
     return NextResponse.json({
       success: true,
@@ -125,7 +134,6 @@ export async function POST(request: Request) {
       humanScore: Math.round(humanScore * 10) / 10,
       isAI: aiScore > 50,
       modelUsed,
-      debug: process.env.NODE_ENV === 'development'
     })
   } catch (error) {
     console.error('Error in AI detection:', error)

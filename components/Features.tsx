@@ -38,7 +38,7 @@ export default function Features() {
   ]
 
   return (
-    <section className="container mx-auto px-6 py-20">
+    <section id="features" className="container mx-auto px-6 py-20">
       <h2 className="text-4xl font-bold text-white text-center mb-12">
         Why Choose Authena?
       </h2>
