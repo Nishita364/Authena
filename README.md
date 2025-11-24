@@ -1,68 +1,208 @@
-# 🔐 Authena - Digital Trust Network
+# 🛡️ Authena - Web3 Trust & AI Security Platform
 
-Authena is a Web3-powered trust network that verifies the authenticity of digital interactions using AI threat detection, decentralized identity (DID), and blockchain-based reputation.
+> A comprehensive security platform combining Cardano blockchain technology with advanced AI detection capabilities.
 
-## 🌟 Features
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
+[![Cardano](https://img.shields.io/badge/Cardano-Blockchain-blue)](https://cardano.org/)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-AI-yellow)](https://huggingface.co/)
 
-- **Decentralized Identity (DID)**: Blockchain wallet integration for verified digital identity
-- **AI-Powered Trust Engine**: Scans URLs, profiles, and messages for fraud and deepfakes
-- **On-Chain Reputation Ledger**: Immutable blockchain storage of trust data
-- **Trust Tokens (TST)**: Earn tokens for verified safe contributions
-- **API Integration**: Easy integration for websites and platforms
+## 🌟 Overview
 
-## 🧩 Tech Stack
+Authena is a dual-mode security application that provides:
 
-- **Frontend**: Next.js + TailwindCSS
-- **Smart Contracts**: Solidity on Polygon
-- **Web3 Identity**: Polygon ID / Ceramic Network
-- **AI**: Python microservice (phishing detection, content authenticity)
-- **Database**: Firebase (off-chain) + IPFS (decentralized storage)
+1. **Authena Platform** - Cardano-powered trust verification and identity management
+2. **AI Authenticity Guard** - Multi-modal AI detection for text, images, and videos
 
-## 🚀 Getting Started
+## ✨ Key Features
+
+### 🔐 Authena Platform
+
+- **Trust Score Verification** - Comprehensive reputation analysis
+- **AI Text Detection** - Real-time AI vs Human text identification
+- **Identity Verification** - Blockchain-recorded identity proofs
+- **Scam Reporting** - Community-driven security alerts
+- **VESPR Wallet Integration** - Direct Cardano blockchain connection
+- **Activity Feed** - Real-time security monitoring
+
+### 🎨 AI Authenticity Guard
+
+- **Text Detection** - Identifies AI-generated text (ChatGPT, GPT-4, etc.)
+- **Image Detection** - Detects AI-generated images
+- **Video Detection** - Deepfake analysis with frame-by-frame processing
+- **Soft Pastel UI** - Beautiful, artistic, minimal design
+
+## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
-- Python 3.9+
-- MetaMask wallet
+- npm or yarn
+- VESPR Wallet (for blockchain features)
 
 ### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/Nishita364/Authena.git
+cd authena
+
 # Install dependencies
 npm install
 
+# Set up environment variables
+cp .env.example .env.local
+
 # Run development server
 npm run dev
-
-# Run AI service (in separate terminal)
-npm run ai-service
 ```
 
-Visit `http://localhost:3000`
+Visit `http://localhost:8000` to see the application.
 
-## 📁 Project Structure
+## 🛠️ Technology Stack
 
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Blockchain**: Cardano, VESPR Wallet
+- **AI/ML**: HuggingFace Inference API
+- **Models**: 
+  - Text: `Hello-SimpleAI/chatgpt-detector-roberta`
+  - Image: `umm-maybe/AI-image-detector`
+  - Video: Frame-based deepfake detection
+
+## 📖 Documentation
+
+For detailed documentation, see [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)
+
+## 🎯 Use Cases
+
+### For Users
+- ✅ Verify trust scores before transactions
+- ✅ Detect AI-generated scam messages
+- ✅ Identify fake reviews and testimonials
+- ✅ Verify image authenticity
+- ✅ Detect deepfake videos
+- ✅ Build verifiable reputation
+
+### For Developers
+- ✅ Learn Web3 integration
+- ✅ Implement AI/ML models
+- ✅ Build full-stack applications
+- ✅ Create security tools
+
+## 🔌 API Endpoints
+
+### Text Detection
+```bash
+POST /api/detect-ai
+Content-Type: application/json
+
+{
+  "text": "Your text here..."
+}
 ```
-authena/
-├── app/                    # Next.js app directory
-├── components/             # React components
-├── contracts/              # Solidity smart contracts
-├── ai-service/             # Python AI microservice
-├── lib/                    # Utilities and helpers
-└── public/                 # Static assets
+
+### Image Detection
+```bash
+POST /api/detect-image
+Content-Type: multipart/form-data
+
+image: [file]
 ```
 
-## 🎯 Core Functionality
+### Video Detection
+```bash
+POST /api/detect-video
+Content-Type: multipart/form-data
 
-1. **Trust Score Calculation**: 0-100% authenticity rating
-2. **Threat Detection**: Real-time phishing and scam detection
-3. **Reputation Building**: Earn trust through verified actions
-4. **Cross-Platform Verification**: API for third-party integration
+video: [file]
+```
 
-## 🔗 Smart Contract Addresses
+## 🧪 Testing
 
-- Polygon Mumbai Testnet: `[Deploy and add address]`
+Use the built-in API tester:
+
+1. Navigate to `http://localhost:8000`
+2. Click "🔧 Test API" tab
+3. Run connection tests
+4. View detailed results
+
+## 📱 Python Standalone Version
+
+A complete Gradio-based application is available:
+
+```bash
+cd python-standalone
+pip install -r requirements.txt
+python app.py
+```
+
+Access at `http://localhost:7860`
+
+## 🎨 Screenshots
+
+### Authena Platform
+- Dark mode with purple/pink gradients
+- Modern, professional interface
+- Comprehensive trust analytics
+
+### AI Authenticity Guard
+- Soft pastel colors
+- Clean, artistic design
+- Three-tab interface (Text/Image/Video)
+
+## 🔒 Security
+
+- No private keys stored
+- Client-side wallet connection
+- Server-side API calls
+- No personal data collection
+
+## 🐛 Known Issues
+
+- HuggingFace free tier may have rate limits
+- Video detection is in demo mode (requires ffmpeg for production)
+- First API call may be slow (model loading)
+
+## 🚀 Future Roadmap
+
+- [ ] Smart contract deployment
+- [ ] On-chain trust scores
+- [ ] Token rewards system
+- [ ] Mobile application
+- [ ] Real-time video processing
+- [ ] Audio deepfake detection
+
+## 🤝 Contributing
+
+This is a demonstration project. Feel free to fork and build upon it!
 
 ## 📄 License
 
-MIT
+Educational and demonstration purposes.
+
+## 🙏 Acknowledgments
+
+- **Cardano** - Blockchain infrastructure
+- **HuggingFace** - AI model hosting
+- **VESPR** - Wallet integration
+- **Next.js** - Application framework
+
+## 📞 Support
+
+For issues:
+1. Check the API Tester
+2. Review browser console (F12)
+3. Verify HuggingFace model status
+4. Check wallet connection
+
+## 🌐 Links
+
+- **GitHub**: https://github.com/Nishita364/Authena
+- **Live Demo**: http://localhost:8000 (local)
+- **Documentation**: [PROJECT_OVERVIEW.md](./PROJECT_OVERVIEW.md)
+
+---
+
+**Built with ❤️ using Next.js, Cardano, and HuggingFace**
+
+**Version**: 1.0.0 | **Status**: ✅ Fully Functional | **Last Updated**: November 2024

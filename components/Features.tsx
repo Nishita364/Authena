@@ -1,6 +1,11 @@
 export default function Features() {
   const features = [
     {
+      icon: '🤖',
+      title: 'AI Text Detection',
+      description: 'Detect AI-generated content vs human-written text. Protect yourself from AI-generated scams, fake reviews, and misleading content.'
+    },
+    {
       icon: '🛡️',
       title: 'AI Threat Detection',
       description: 'Advanced machine learning models analyze patterns to detect scams, phishing, and fake identities in real-time.'
@@ -8,7 +13,7 @@ export default function Features() {
     {
       icon: '⛓️',
       title: 'Blockchain Reputation',
-      description: 'Immutable trust scores stored on Polygon blockchain, ensuring transparency and tamper-proof records.'
+      description: 'Immutable trust scores stored on Cardano blockchain, ensuring transparency, security, and tamper-proof records with low fees.'
     },
     {
       icon: '🔐',

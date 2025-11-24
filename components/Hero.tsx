@@ -5,8 +5,8 @@ export default function Hero() {
         Build Digital Trust in an <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Untrusted Internet</span>
       </h1>
       <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-        Authena uses AI to detect scams and fake identities, blockchain to store immutable trust data, 
-        and decentralized identity to give users control over their reputation.
+        Authena uses AI to detect scams and fake identities, Cardano blockchain to store immutable trust data, 
+        and decentralized identity to give users control over their reputation. Connect with VESPR wallet to get started.
       </p>
       <div className="flex gap-4 justify-center">
         <button className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-semibold hover:opacity-90 transition">
